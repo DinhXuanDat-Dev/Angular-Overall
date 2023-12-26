@@ -9,6 +9,7 @@ import { CONFIG } from 'src/assets/setup';
 })
 export class HomeComponent implements OnInit {
   globalTagId;
+  userInput: string = '';
   constructor(
     private _gSiteTagsService: GsiteTagsService,
   ) { 

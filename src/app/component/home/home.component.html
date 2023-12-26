@@ -1,1 +1,9 @@
-<p>home works!</p>
+<div>
+    <label for="userInput">Type something:</label>
+    <input id="userInput" [(ngModel)]="userInput" placeholder="Type here" />
+</div>
+
+<div>
+    <span>You typed:</span>
+    <p [innerHTML]="userInput | detectLink"></p>
+</div>
