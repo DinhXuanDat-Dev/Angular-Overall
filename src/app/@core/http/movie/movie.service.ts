@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient, HttpParams } from "@angular/common/http";
+import { Movies } from 'src/app/@core/http/movie';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
       private _http: HttpClient,
     ) { }
   
-    getMovies(term: string): Observable<any> {
+    getMovies(term: string): Observable<Movies> {
       const params = { params: new HttpParams().set("search", term)};
       return this._http.get(`${this.api}/?s=` + term + '&apikey=' + this.API_KEY, params);
     }

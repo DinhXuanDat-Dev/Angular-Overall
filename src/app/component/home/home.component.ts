@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject, debounceTime, distinctUntilChanged, pipe, pluck, switchMap, take, takeUntil } from 'rxjs';
-import { Movies } from 'src/app/@core/http/movie/movie.DTO';
-import { MovieService } from 'src/app/@core/http/movie/movie.service';
+import { Subject, debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
+import { Movies, MovieService } from 'src/app/@core/http/movie';
 import { BaseComponent } from 'src/app/@core/libs/core/base/base-component';
 import { GsiteTagsService } from 'src/app/service/ggtag.service';
 import { CONFIG } from 'src/assets/setup';

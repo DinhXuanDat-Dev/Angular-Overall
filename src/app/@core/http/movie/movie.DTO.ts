@@ -4,7 +4,7 @@ export interface Movies {
     totalResults?: string;
 }
 
-export interface Search {
+interface Search {
     Poster?: string;
     Title?: string;
     Type?: string;
