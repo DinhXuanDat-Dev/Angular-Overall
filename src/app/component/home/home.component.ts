@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject, debounceTime, distinctUntilChanged, pipe, pluck, switchMap, take, takeUntil } from 'rxjs';
+import { Movies } from 'src/app/@core/http/movie/movie.DTO';
+import { MovieService } from 'src/app/@core/http/movie/movie.service';
+import { BaseComponent } from 'src/app/@core/libs/core/base/base-component';
 import { GsiteTagsService } from 'src/app/service/ggtag.service';
 import { CONFIG } from 'src/assets/setup';
 
@@ -7,13 +11,19 @@ import { CONFIG } from 'src/assets/setup';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent extends BaseComponent implements OnInit {
   globalTagId;
   userInput: string = '';
+  onDebounceSearching$: Subject<any> = new Subject();
+  movies!: Movies;
+
   constructor(
     private _gSiteTagsService: GsiteTagsService,
+    private _movieService: MovieService
   ) { 
+    super();
     this.globalTagId = CONFIG.googleTagManagerKey;
+    this.registerDebounceSearching();
   }
 
   ngOnInit(): void {
@@ -32,6 +42,19 @@ export class HomeComponent implements OnInit {
       subTotal: 999,
       send_to: `${this.globalTagId}/cairn-s/theca0+transactions`
     })
+  }
+
+  registerDebounceSearching() {
+    this.onDebounceSearching$.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap(_ => {
+        return this._movieService.getMovies(this.userInput);
+      }),
+      takeUntil(this.destroy$),
+    ).subscribe(res => {
+      this.movies = res;
+    });
   }
 
 }

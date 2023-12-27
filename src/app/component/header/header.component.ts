@@ -9,6 +9,7 @@ import { CONFIG } from 'src/assets/setup';
 })
 export class HeaderComponent implements OnInit {
   globalTagId;
+  loading: boolean = false;
   constructor(
     private _gSiteTagsService: GsiteTagsService,
   ) { 

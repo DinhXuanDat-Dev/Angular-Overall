@@ -1,9 +1,19 @@
 <div>
     <label for="userInput">Type something:</label>
-    <input id="userInput" [(ngModel)]="userInput" placeholder="Type here" />
+    <input id="userInput" [(ngModel)]="userInput" (input)="onDebounceSearching$.next($event)" placeholder="Type here" />
 </div>
 
 <div>
     <span>You typed:</span>
-    <p [innerHTML]="userInput | detectLink"></p>
+    <span [innerHTML]="userInput | detectLink"></span>
+</div>
+
+<div *ngFor="let movie of movies?.Search">
+    <img src="{{movie?.Poster}}" alt="">
+    <h2>{{movie?.Title}}</h2>
+    <div>
+        <span>{{movie?.Type}}</span>
+        <span>{{movie?.Year}}</span>
+        <span>{{movie?.imdbID}}</span>
+    </div>
 </div>
