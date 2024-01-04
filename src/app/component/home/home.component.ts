@@ -15,6 +15,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
   userInput: string = '';
   onDebounceSearching$: Subject<any> = new Subject();
   movies!: Movies;
+  loading: boolean = false;
 
   constructor(
     private _gSiteTagsService: GsiteTagsService,
@@ -48,11 +49,14 @@ export class HomeComponent extends BaseComponent implements OnInit {
       debounceTime(500),
       distinctUntilChanged(),
       switchMap(_ => {
+        this.loading = true;
         return this._movieService.getMovies(this.userInput);
       }),
       takeUntil(this.destroy$),
     ).subscribe(res => {
       this.movies = res;
+      console.log('movie', this.movies);
+      this.loading = false;
     });
   }
 

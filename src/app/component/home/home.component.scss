@@ -1,0 +1,33 @@
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    
+    .item {
+        $items-per-row: 3;
+        width: calc(100% / $items-per-row - 10px); /* Adjust the width as needed */
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        img {
+            width: 100%;
+        }
+        .box {
+            background-color: #fff;
+            padding: 10px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            .wrapper {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 10px;
+            }
+        }
+    }
+}
+
+h2 {
+    margin: 0; /* Remove default margin from h2 element */
+}

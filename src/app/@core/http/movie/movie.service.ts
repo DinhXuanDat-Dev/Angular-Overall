@@ -14,7 +14,7 @@ import { Movies } from 'src/app/@core/http/movie';
       private _http: HttpClient,
     ) { }
   
-    getMovies(term: string): Observable<Movies> {
+    getMovies(term: string): Observable<any> {
       const params = { params: new HttpParams().set("search", term)};
       return this._http.get(`${this.api}/?s=` + term + '&apikey=' + this.API_KEY, params);
     }

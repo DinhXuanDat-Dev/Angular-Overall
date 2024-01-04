@@ -1,4 +1,5 @@
 export interface Movies {
+    Error: string;
     Response?: string;
     Search?: Search[];
     totalResults?: string;
