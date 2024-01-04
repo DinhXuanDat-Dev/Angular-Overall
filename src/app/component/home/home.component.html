@@ -11,17 +11,43 @@
 <div *ngIf="movies?.Response === 'False'">{{movies.Error}}</div>
 <div *ngIf="loading">loading...</div>
 
+<div *ngIf="movies">
+    <label>Select All</label>
+    <!-- <input type="checkbox" (change)="handleSelectAll($event?.tar)"> -->
+    <mat-checkbox 
+        (change)="handleSelectAll($event.checked)"
+    >
+
+    </mat-checkbox>
+</div>
+
 <div class="list">
     <div class="item" *ngFor="let movie of movies?.Search">
-        <input type="checkbox">
+        <mat-checkbox type="checkbox" [checked]="movie?.Checked"></mat-checkbox>
         <img [src]="movie?.Poster !== 'N/A' ? movie?.Poster : '/assets/images/common/no-image.jpg'" alt="">
         <div class="box">
-            <h2>{{movie?.Title}}</h2>
+            
             <div class="wrapper">
-                <span>{{movie?.Type}}</span>
-                <span>{{movie?.Year}}</span>
-                <span>{{movie?.imdbID}}</span>
+                <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Movie detail
+                            <h2>{{movie?.Title}}</h2>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Des
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p>
+                        <span>{{movie?.Type}}</span>
+                        <span>{{movie?.Year}}</span>
+                        <span>{{movie?.imdbID}}</span>
+                    </p>
+                </mat-expansion-panel>
             </div>
+            
         </div>
+
+        
     </div>
 </div>

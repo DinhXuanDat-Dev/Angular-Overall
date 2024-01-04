@@ -44,6 +44,13 @@ export class HomeComponent extends BaseComponent implements OnInit {
     })
   }
 
+  handleSelectAll(checked: boolean) {
+    console.log('checked', checked);
+    this.movies.Search?.forEach((item) => {
+      item.Checked = checked;
+    })
+  }
+
   registerDebounceSearching() {
     this.onDebounceSearching$.pipe(
       debounceTime(500),
@@ -57,7 +64,16 @@ export class HomeComponent extends BaseComponent implements OnInit {
       this.movies = res;
       console.log('movie', this.movies);
       this.loading = false;
+      this.setPropsForListMovie(this.movies);
+      console.log('movie af',this.movies);
+      
     });
   }
 
+  setPropsForListMovie(movies: Movies) {
+    movies.Search?.forEach((item, index) => {
+      item.Id = index;
+      item.Checked = false;
+    })
+  }
 }

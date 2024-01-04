@@ -6,6 +6,8 @@ export interface Movies {
 }
 
 interface Search {
+    Id?: number;
+    Checked?: boolean;
     Poster?: string;
     Title?: string;
     Type?: string;

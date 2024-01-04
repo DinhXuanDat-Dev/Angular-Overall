@@ -7,18 +7,24 @@ import { HeaderComponent } from './component/header/header.component';
 import { DetectLinkPipe } from './pipes/detect-link.pipe';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatExpansionModule } from '@angular/material/expansion';
+import { SharedModule } from './@share/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    DetectLinkPipe
+    DetectLinkPipe,
+    
   ],
   imports: [
+    SharedModule,
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCheckboxModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
