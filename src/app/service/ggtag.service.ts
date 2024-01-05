@@ -6,7 +6,7 @@ declare let gtag:Function;
   providedIn: 'root'
 })
 
-export class GsiteTagsService {
+export class gSiteTagsService {
 
   public emitterBookingConfirm( 
     eventName: string, 

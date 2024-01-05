@@ -5,7 +5,7 @@ export interface Movies {
     totalResults?: string;
 }
 
-interface Search {
+export interface Search {
     Id?: number;
     Checked?: boolean;
     Poster?: string;

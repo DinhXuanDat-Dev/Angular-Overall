@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GsiteTagsService } from 'src/app/service/ggtag.service';
+import { gSiteTagsService } from 'src/app/service/ggtag.service';
 import { CONFIG } from 'src/assets/setup';
 
 @Component({
@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
   globalTagId;
   loading: boolean = false;
   constructor(
-    private _gSiteTagsService: GsiteTagsService,
+    private _gSiteTagsService: gSiteTagsService,
   ) { 
     this.globalTagId = CONFIG.googleTagManagerKey;
   }

@@ -1,3 +1,11 @@
+.input {
+    display: flex;
+    align-items: center;
+    .clear {
+        cursor: pointer;
+    }
+}
+
 .list {
     display: flex;
     flex-wrap: wrap;
@@ -5,24 +13,32 @@
     
     .item {
         $items-per-row: 3;
-        width: calc(100% / $items-per-row - 10px); /* Adjust the width as needed */
+        border-radius: 10px;
+        border: solid 1px #888;
         display: flex;
         flex-direction: column;
         position: relative;
+        width: calc(100% / $items-per-row - 10px); /* Adjust the width as needed */
         img {
             width: 100%;
         }
         .box {
-            background-color: #fff;
             padding: 10px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             .wrapper {
+                background-color: aliceblue;
+                border-radius: 10px;
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 margin-top: 10px;
+                padding: 10px;
+                .description {
+                    display: flex;
+                    flex-direction: column;
+                }
             }
         }
     }

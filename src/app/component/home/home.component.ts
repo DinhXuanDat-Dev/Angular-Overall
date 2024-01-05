@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
-import { Movies, MovieService } from 'src/app/@core/http/movie';
+import { Movies, MovieService, Search } from 'src/app/@core/http/movie';
 import { BaseComponent } from 'src/app/@core/libs/core/base/base-component';
-import { GsiteTagsService } from 'src/app/service/ggtag.service';
+import { gSiteTagsService } from 'src/app/service/ggtag.service';
 import { CONFIG } from 'src/assets/setup';
 
 @Component({
@@ -16,9 +16,11 @@ export class HomeComponent extends BaseComponent implements OnInit {
   onDebounceSearching$: Subject<any> = new Subject();
   movies!: Movies;
   loading: boolean = false;
+  listMovieChecked: any | undefined[] = [];
+  isCheckedAll: boolean | undefined = false;
 
   constructor(
-    private _gSiteTagsService: GsiteTagsService,
+    private _gSiteTagsService: gSiteTagsService,
     private _movieService: MovieService
   ) { 
     super();
@@ -44,13 +46,6 @@ export class HomeComponent extends BaseComponent implements OnInit {
     })
   }
 
-  handleSelectAll(checked: boolean) {
-    console.log('checked', checked);
-    this.movies.Search?.forEach((item) => {
-      item.Checked = checked;
-    })
-  }
-
   registerDebounceSearching() {
     this.onDebounceSearching$.pipe(
       debounceTime(500),
@@ -66,7 +61,6 @@ export class HomeComponent extends BaseComponent implements OnInit {
       this.loading = false;
       this.setPropsForListMovie(this.movies);
       console.log('movie af',this.movies);
-      
     });
   }
 
@@ -75,5 +69,32 @@ export class HomeComponent extends BaseComponent implements OnInit {
       item.Id = index;
       item.Checked = false;
     })
+  }
+
+  clearInput() {
+    this.onDebounceSearching$.next(this.userInput);
+    this.userInput = '';
+    this.listMovieChecked = [];
+  }
+
+  handleSelectAll() {
+    this.listMovieChecked = [];
+    this.movies.Search?.forEach((movie) => {
+      movie.Checked = this.isCheckedAll;
+      if (this.isCheckedAll) {
+        this.listMovieChecked.push(movie);
+      }
+    });
+  }
+
+  handleItemCheck(movie: any) {
+    if (movie.Checked) {
+      this.listMovieChecked.push(movie);
+    } else {
+      this.listMovieChecked = this.listMovieChecked.filter(
+        (item: any) => item.Id !== movie.Id
+      );
+    }
+    this.isCheckedAll = this.movies.Search?.every((movie) => movie.Checked);
   }
 }

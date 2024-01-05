@@ -1,6 +1,7 @@
-<div>
+<div class="input">
     <label for="userInput">Type something:</label>
     <input id="userInput" [(ngModel)]="userInput" (input)="onDebounceSearching$.next($event)" placeholder="Type here" />
+    <mat-icon *ngIf="userInput" (click)="clearInput()" class="clear">close</mat-icon>
 </div>
 
 <div>
@@ -11,43 +12,30 @@
 <div *ngIf="movies?.Response === 'False'">{{movies.Error}}</div>
 <div *ngIf="loading">loading...</div>
 
-<div *ngIf="movies">
+<div *ngIf="movies?.Response === 'True'">
     <label>Select All</label>
-    <!-- <input type="checkbox" (change)="handleSelectAll($event?.tar)"> -->
-    <mat-checkbox 
-        (change)="handleSelectAll($event.checked)"
-    >
-
-    </mat-checkbox>
+    <mat-checkbox [(ngModel)]="isCheckedAll" (change)="handleSelectAll()"></mat-checkbox>
 </div>
 
 <div class="list">
     <div class="item" *ngFor="let movie of movies?.Search">
-        <mat-checkbox type="checkbox" [checked]="movie?.Checked"></mat-checkbox>
+        <mat-checkbox type="checkbox" [(ngModel)]="movie.Checked" (change)="handleItemCheck(movie)"></mat-checkbox>
         <img [src]="movie?.Poster !== 'N/A' ? movie?.Poster : '/assets/images/common/no-image.jpg'" alt="">
         <div class="box">
-            
             <div class="wrapper">
-                <mat-expansion-panel hideToggle>
+                <mat-expansion-panel>
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            Movie detail
                             <h2>{{movie?.Title}}</h2>
                         </mat-panel-title>
-                        <mat-panel-description>
-                            Des
-                        </mat-panel-description>
                     </mat-expansion-panel-header>
-                    <p>
+                    <p class="description">
                         <span>{{movie?.Type}}</span>
                         <span>{{movie?.Year}}</span>
                         <span>{{movie?.imdbID}}</span>
                     </p>
                 </mat-expansion-panel>
             </div>
-            
         </div>
-
-        
     </div>
 </div>
