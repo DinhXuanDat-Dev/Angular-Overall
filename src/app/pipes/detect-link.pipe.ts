@@ -6,8 +6,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DetectLinkPipe implements PipeTransform {
 
   transform(text: string): string {
-    const pattern = /(^|[\s:"'])((ftp|http|https):\/\/)?(([a-z\d]([-\w]*[a-z\d])*\.)+[a-z]{2,6}\/?[\w\d/\-?=%&.:#;~_+]*)/gi;
-    return text?.replace(pattern, '$1<a href="http://$4" target="_blank">$4</a>');
+    const pattern = /(^|\s)((?:https?:\/\/)?[\w-]+(?:\.[\w-]+)+\.?(:\d+)?(?:\/\S*)?)/gi;
+    return text?.replace(pattern, function(match, prefix, url) {
+      const fullURL = (url.startsWith('http') ? '' : 'https://') + url;
+      return prefix + '<a href="' + fullURL + '" target="_blank">' + url + '</a>';
+    });
   }
 
 }
